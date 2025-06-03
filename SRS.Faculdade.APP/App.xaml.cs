@@ -4,11 +4,8 @@ using System.Windows;
 
 namespace SRS.Faculdade.APP
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
-    }
 
+    }
 }

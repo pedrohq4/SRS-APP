@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SRS.Faculdade.APP.Model.Academico;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,16 +10,16 @@ namespace SRS.Faculdade.Model
 {
     class Estudante : Pessoa
     {
-        private string Curso { get; set; }                 
-        private string Titulo { get; set; }         
-        private HistoricoEscolar Historico {  get; set; }
+        public string Curso { get; private set; }                 
+        public string Titulo { get; private set; }         
+        public HistoricoAcademico Historico { get; private set; }
         public List<Turma> TurmasMatriculadas { get; private set; }
 
         public Estudante(string nome, string cpf, string curso, string titulo) : base(nome, cpf)
         {
             Curso = curso;
             Titulo = titulo;
-            Historico = new HistoricoEscolar;
+            Historico = new HistoricoAcademico(this);
             TurmasMatriculadas = new List<Turma>();
         }
 
@@ -44,13 +45,13 @@ namespace SRS.Faculdade.Model
 
         public bool EstaMatriculadoEmDisciplinaSemelhante(Turma novaTurma)
         {
-            var cursoDaNovaTurma = novaTurma.CursoRepresentado;
+            var cursoDaNovaTurma = novaTurma.DisciplinaDoCurso;
 
             foreach(var turma in TurmasMatriculadas)
             {
-                var cursoAtual = turma.CursoRepesentado;
+                var curso = turma.DisciplinaDoCurso;
 
-                if(cursoAtual == cursoDaNovaTurma && turma.Nota(this) == null)
+                if(curso == cursoDaNovaTurma)
                 {
                     return true;
                 }

@@ -1,4 +1,4 @@
-﻿using SRS.Faculdade.Pessoa;
+﻿using SRS.Faculdade.APP.Model.Academico;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +9,25 @@ namespace SRS.Faculdade.Model
 {
     internal class Professor : Pessoa
     {
-        private string Titulo {  get; set; }
-        private string Departamento { get; set; }
-        private List<Section> TurmasAtuais {  get; set; }
+        public string Titulo {  get; private set; }
+        public string Departamento { get; private set; }
+        public Dictionary<string, Turma> TurmasLecionadas {  get; private set; }
 
         public Professor(string nome, string cpf, string titulo, string departamento) : base(nome, cpf)
         {
             Titulo = titulo;
             Departamento = departamento;
+            TurmasLecionadas = new Dictionary<string, Turma>();
+        }
 
-            Teaches = new List<Section>();
+        public void AdcionarTurma(Turma turma)
+        {
+            TurmasLecionadas.Add(turma.Nome, turma);
+        }
+
+        public void RemoverTurma(string nomeDaTurma)
+        {
+            TurmasLecionadas.Remove(nomeDaTurma);
         }
 
         public override string GetDadosAdcionais()
@@ -26,9 +35,9 @@ namespace SRS.Faculdade.Model
             return $"Titulo: {Titulo}\nDepartamento: {Departamento}";
         }
 
-        public string DadosTodasTurmas()
+        public string GetTodasTurmas()
         {
-            foreach (var turma in TurmasAtuais)
+            foreach (var turma in TurmasLecionadas)
             {
                 return "";
             }
@@ -36,9 +45,9 @@ namespace SRS.Faculdade.Model
             return "";
         }
 
-        public string DadosTurma(int id)
+        public Turma GetDaTurma(string nomeTurma)
         {
-
+            return TurmasLecionadas[nomeTurma];
         }
     }
 }

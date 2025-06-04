@@ -1,0 +1,14 @@
+﻿using SRS.Faculdade.APP.Model.Pessoa;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SRS.Faculdade.APP.Services
+{
+    public interface IPessoaService
+    {
+        public IList<Usuario> ObterTodos();
+    }
+}

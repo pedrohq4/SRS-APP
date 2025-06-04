@@ -5,25 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SRS.Faculdade.Model
+namespace SRS.Faculdade.APP.Model.Pessoa
 {
     public abstract class Pessoa
     {
-        protected Pessoa(string nome, string cpf)
+        public string Nome { get; private set; }
+        public string Sobrenome { get; private set; }
+        public int Id { get; set; }
+        public string Cpf { get; private set; }
+
+        protected Pessoa(string nome, string sobrenome, string cpf)
         {
             Nome = nome;
             Cpf = cpf;
+            Sobrenome = sobrenome;
         }
-
-        [Key]
-        public int Id { get; set; }
-
-        [Required(ErrorMessage = "O nome do aluno deve ser preenchido", AllowEmptyStrings = false)]
-        public string Nome { get; private set; }
-
-        [Required(ErrorMessage = "O cpf do aluno deve ser preenchido", AllowEmptyStrings = false)]
-        [StringLength(11)]
-        public string Cpf { get; private set; }
 
         public abstract string GetDadosAdcionais();
 

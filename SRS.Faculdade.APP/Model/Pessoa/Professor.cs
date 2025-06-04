@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SRS.Faculdade.Model
+namespace SRS.Faculdade.APP.Model.Pessoa
 {
     internal class Professor : Pessoa
     {
@@ -13,7 +13,7 @@ namespace SRS.Faculdade.Model
         public string Departamento { get; private set; }
         public Dictionary<string, Turma> TurmasLecionadas {  get; private set; }
 
-        public Professor(string nome, string cpf, string titulo, string departamento) : base(nome, cpf)
+        public Professor(string nome,string sobrenome , string cpf, string titulo, string departamento) : base(nome, sobrenome, cpf)
         {
             Titulo = titulo;
             Departamento = departamento;

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SRS.Faculdade.Model
+namespace SRS.Faculdade.APP.Model.Pessoa
 {
     class Estudante : Pessoa
     {
@@ -15,7 +15,7 @@ namespace SRS.Faculdade.Model
         public HistoricoAcademico Historico { get; private set; }
         public List<Turma> TurmasMatriculadas { get; private set; }
 
-        public Estudante(string nome, string cpf, string curso, string titulo) : base(nome, cpf)
+        public Estudante(string nome, string sobrenome, string cpf, string titulo, string curso) : base(nome, sobrenome, cpf)
         {
             Curso = curso;
             Titulo = titulo;

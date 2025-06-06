@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SRS.Faculdade.APP.Services
 {
-    public interface IPessoaService
+    public interface IUsuarioService
     {
         public IList<Usuario> ObterTodos();
     }

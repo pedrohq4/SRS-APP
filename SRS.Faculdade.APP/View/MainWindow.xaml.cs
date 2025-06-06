@@ -1,4 +1,5 @@
-﻿using SRS.Faculdade.APP.View;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SRS.Faculdade.APP.View;
 using System.Windows;
 
 namespace SRS.Faculdade.APP
@@ -8,7 +9,8 @@ namespace SRS.Faculdade.APP
         public MainWindow()
         {
             InitializeComponent();
-            FramePrincipal.Navigate(new Login());
+            var loginPage = AppHost.ServiceProvider.GetRequiredService<Login>();
+            FramePrincipal.Navigate(loginPage);
         }
     }
 }

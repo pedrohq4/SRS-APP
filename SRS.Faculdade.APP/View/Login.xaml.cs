@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using SRS.Faculdade.APP.Model.Pessoa;
 using SRS.Faculdade.APP.Services;
 using System;
@@ -9,20 +10,23 @@ namespace SRS.Faculdade.APP.View
 {
     public partial class Login : Page
     {
-        IPessoaService _Service = new PessoaService();
+        IUsuarioService _Service = new UsuarioService();
+        IList<Usuario> usuarios;
 
         public Login()
         {
             InitializeComponent();
+            usuarios = _Service.ObterTodos();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!email.Text.IsNullOrEmpty() && UsuarioExistente(email.Text, senha.Text))
+            if (!email.Text.IsNullOrEmpty() && UsuarioExiste(email.Text, senha.Text))
             {
                 if (VerificadorUsuario(email.Text)[1] == "Aluno.edu")
                 {
-                    ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new Aluno());
+                    var loginPage = AppHost.ServiceProvider.GetRequiredService<Estudante>();
+                    ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(loginPage);
                 }
 
                 else if (VerificadorUsuario(email.Text)[1] == "Professor.edu")
@@ -38,9 +42,8 @@ namespace SRS.Faculdade.APP.View
             TxtError.Text = "Email e/ou senha invalido";
         }
 
-        private bool UsuarioExistente(string email, string senha)
+        private bool UsuarioExiste(string email, string senha)
         {
-            var usuarios = _Service.ObterTodos();
             Usuario usuario = usuarios.FirstOrDefault(u => u.Email == email);
 
             if (usuario == null || usuario.Senha != senha)

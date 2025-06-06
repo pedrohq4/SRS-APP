@@ -6,6 +6,10 @@ namespace SRS.Faculdade.APP
 {
     public partial class App : Application
     {
-
+        public App()
+        {
+            AppHost.Configure();
+            InitializeComponent();
+        }
     }
 }

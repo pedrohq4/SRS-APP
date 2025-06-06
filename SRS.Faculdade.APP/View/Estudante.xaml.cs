@@ -15,12 +15,9 @@ using System.Windows.Shapes;
 
 namespace SRS.Faculdade.APP.View
 {
-    /// <summary>
-    /// Interação lógica para Aluno.xam
-    /// </summary>
-    public partial class Aluno : Page
+    public partial class Estudante : Page
     {
-        public Aluno()
+        public Estudante()
         {
             InitializeComponent();
         }

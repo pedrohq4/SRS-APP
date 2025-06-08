@@ -1,32 +1,32 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using SRS.Faculdade.APP.Model.Pessoa;
+﻿using Microsoft.IdentityModel.Tokens;
+using SRS.Faculdade.APP.Model.Entities;
 using SRS.Faculdade.APP.Services;
-using System;
+using SRS.Faculdade.APP.View.EstudantePages;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace SRS.Faculdade.APP.View
 {
-    public partial class Login : Page
+    public partial class LoginView : Page
     {
-        IUsuarioService _Service = new UsuarioService();
-        IList<Usuario> usuarios;
+        UsuarioService _Service = new UsuarioService();
+        Pessoa Pessoa;
+        private Estudante estudante;
+        private Professor professor;
 
-        public Login()
+        public LoginView()
         {
             InitializeComponent();
-            usuarios = _Service.ObterTodos();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!email.Text.IsNullOrEmpty() && UsuarioExiste(email.Text, senha.Text))
+            if (!email.Text.IsNullOrEmpty() && UsuarioExiste(email.Text, senha.Password))
             {
                 if (VerificadorUsuario(email.Text)[1] == "Aluno.edu")
                 {
-                    var loginPage = AppHost.ServiceProvider.GetRequiredService<Estudante>();
-                    ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(loginPage);
+                    ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new EstudanteView((Estudante)Pessoa));
+                    Application.Current.MainWindow.WindowState = WindowState.Maximized;
                 }
 
                 else if (VerificadorUsuario(email.Text)[1] == "Professor.edu")
@@ -44,9 +44,14 @@ namespace SRS.Faculdade.APP.View
 
         private bool UsuarioExiste(string email, string senha)
         {
-            Usuario usuario = usuarios.FirstOrDefault(u => u.Email == email);
+            Pessoa = _Service.ObterPessoaPorEmail(email);
 
-            if (usuario == null || usuario.Senha != senha)
+            if (Pessoa == null || Pessoa.Usuario == null)
+            {
+                return false;
+            }
+
+            if (Pessoa.Usuario.Email != email || Pessoa.Usuario.Senha != senha)
             {
                 return false;
             }

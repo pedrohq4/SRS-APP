@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SRS.Faculdade.APP.Model.Pessoa
+namespace SRS.Faculdade.APP.Model.Entities
 {
-    public enum TipoUsuario
+    public class Admin
     {
-        Professor,
-        Aluno,
-        Admin
     }
 }

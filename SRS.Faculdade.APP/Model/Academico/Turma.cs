@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace SRS.Faculdade.APP.Model.Academico
 {
-    internal class Turma
+    public class Turma
     {
-        public string Nome => DisciplinaDoCurso.CodigoDisciplina + " - " + Numero;
+        public string Nome => DisciplinaDoCurso.CodigoDisciplina + "-" + Numero;
         public int Numero {  get; set; }              
         public DayOfWeek DiaSemana { get; set; }    
         public string Horario { get; set; }

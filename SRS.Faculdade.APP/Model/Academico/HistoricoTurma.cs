@@ -8,7 +8,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SRS.Faculdade.APP.Model.Academico
 {
-    internal class HistoricoTurma
+    public class HistoricoTurma
     {
         public string Nota {  get; set; }
         public Estudante Estudante { get; set; }

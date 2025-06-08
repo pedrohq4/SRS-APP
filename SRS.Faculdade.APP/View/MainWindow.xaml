@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SRS.Faculdade.APP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Style="{StaticResource MaterialDesignWindow}"
+        Title="MainWindow" Height="550" Width="800">
+
     <Grid>
         <Frame x:Name="FramePrincipal" Grid.Row="1" NavigationUIVisibility="Hidden"/>
     </Grid>

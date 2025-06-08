@@ -13,11 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SRS.Faculdade.APP.View
+namespace SRS.Faculdade.APP.View.EstudantePages
 {
-    public partial class Estudante : Page
+    /// <summary>
+    /// Interação lógica para TurmaView.xam
+    /// </summary>
+    public partial class TurmaView : Page
     {
-        public Estudante()
+        public TurmaView()
         {
             InitializeComponent();
         }

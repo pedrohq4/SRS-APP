@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SRS.Faculdade.APP.Model.Pessoa
+namespace SRS.Faculdade.APP.Model.Entities
 {
-    internal class Professor : Pessoa
+    public class Professor : Pessoa
     {
         public string Titulo {  get; private set; }
         public string Departamento { get; private set; }

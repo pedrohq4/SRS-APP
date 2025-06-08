@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SRS.Faculdade.APP.Model.Academico
 {
-    internal class Curso
+    public class Curso
     {
         public string CodigoDisciplina {  get; set; }   
         public string NomeDisciplina { get; set;}       

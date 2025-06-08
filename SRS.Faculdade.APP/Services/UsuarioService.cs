@@ -1,23 +1,25 @@
-﻿using SRS.Faculdade.APP.Model.Pessoa;
+﻿using SRS.Faculdade.APP.Model.Entities;
 
 namespace SRS.Faculdade.APP.Services
 {
-    public class UsuarioService : IUsuarioService
+    public class UsuarioService
     {
-        private IList<Usuario> _usuarios;
+        private IList<Pessoa> _Pessoas;
 
         public UsuarioService() => CarregarListaInicial();
 
         public void CarregarListaInicial()
         {
-            _usuarios = new List<Usuario>()
+            _Pessoas = new List<Pessoa>()
             {
-                new Usuario(TipoUsuario.Professor, "Jose", "Pereira", "0987392", "Professor", "Humanas"), //jose.pereira@Professor.edu / 0987392
-                new Usuario(TipoUsuario.Professor, "João", "Silva", "0987392", "Professor", "Humanas"), //joão.silva@Professor.edu / 0987392
-                new Usuario(TipoUsuario.Aluno, "Lucas", "Andrade", "023334", "Doutorado", "Medicina") //Lucas.Andrade@Professor.edu / 023334
+                //new Usuario(TipoUsuario.Professor, "Jose", "Pereira", "0", "Professor", "Humanas"), //jose.pereira@Professor.edu / 0987392
+                //new Usuario(TipoUsuario.Professor, "João", "Silva", "0", "Professor", "Humanas"), //joão.silva@Professor.edu / 0987392
+                new Estudante("Lucas", "Andrade", "0", "Doutorado", "Medicina") //Lucas.Andrade@Professor.edu / 023334
             };
         }
 
-        public IList<Usuario> ObterTodos() => _usuarios;
+        public IList<Pessoa> ObterTodos() => _Pessoas;
+        public Pessoa ObterPessoaPorEmail(string email) => _Pessoas.FirstOrDefault(p => p.Usuario.Email.Equals(email));
+        public Pessoa ObterPessoaPorId() => _Pessoas[0];
     }
 }

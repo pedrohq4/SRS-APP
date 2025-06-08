@@ -5,30 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SRS.Faculdade.APP.Model.Pessoa
+namespace SRS.Faculdade.APP.Model.Entities
 {
     public class Usuario
     {
+        public TipoUsuario TipoUsuario { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
         public bool EhAdmin { get; set; }
-        public Pessoa Pessoa { get; set; }
 
-        public Usuario(TipoUsuario tipoUsuario,string nome, string sobrenome, string cpf, string titulo, string materia)
+        public Usuario(TipoUsuario tipoUsuario, string nome, string sobrenome)
         {
+            Email = GerarEmail(nome, sobrenome, tipoUsuario);
             EhAdmin = false;
-            Senha = cpf;
+            Senha = "123";
+            TipoUsuario = tipoUsuario;
 
-            if (tipoUsuario is TipoUsuario.Professor)
+            if(tipoUsuario is TipoUsuario.Admin)
             {
-                Pessoa = new Professor(nome, sobrenome, cpf, titulo, materia);
-                Email = GerarEmail(nome, sobrenome,tipoUsuario);
-                
-            }
-            else if(tipoUsuario is TipoUsuario.Aluno)
-            {
-                Pessoa = new Estudante(nome, sobrenome, cpf, titulo, materia);
-                Email = GerarEmail(nome, sobrenome, tipoUsuario);
+               EhAdmin = true;
             }
         }
 

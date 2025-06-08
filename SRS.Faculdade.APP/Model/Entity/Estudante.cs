@@ -1,14 +1,8 @@
 ﻿using SRS.Faculdade.APP.Model.Academico;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SRS.Faculdade.APP.Model.Pessoa
+namespace SRS.Faculdade.APP.Model.Entities
 {
-    class Estudante : Pessoa
+    public class Estudante : Pessoa
     {
         public string Curso { get; private set; }                 
         public string Titulo { get; private set; }         

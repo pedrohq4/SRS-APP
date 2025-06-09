@@ -1,4 +1,5 @@
-﻿using SRS.Faculdade.APP.Model.Entities;
+﻿using SRS.Faculdade.APP.Model.Academico;
+using SRS.Faculdade.APP.Model.Entities;
 
 namespace SRS.Faculdade.APP.Services
 {
@@ -13,7 +14,7 @@ namespace SRS.Faculdade.APP.Services
             _Pessoas = new List<Pessoa>()
             {
                 //new Usuario(TipoUsuario.Professor, "Jose", "Pereira", "0", "Professor", "Humanas"), //jose.pereira@Professor.edu / 0987392
-                //new Usuario(TipoUsuario.Professor, "João", "Silva", "0", "Professor", "Humanas"), //joão.silva@Professor.edu / 0987392
+                /*new Professor("João", "Silva", "0", "Professor", "Humanas"),*/ //joão.silva@Professor.edu / 0987392
                 new Estudante("Lucas", "Andrade", "0", "Doutorado", "Medicina") //Lucas.Andrade@Professor.edu / 023334
             };
         }

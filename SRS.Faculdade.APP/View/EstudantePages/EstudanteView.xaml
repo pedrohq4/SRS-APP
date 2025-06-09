@@ -121,7 +121,7 @@
                                 </lvc:Axis.Separator>
                             </lvc:Axis>
                         </lvc:CartesianChart.AxisY>
-
+ 
                         <lvc:CartesianChart.DataTooltip>
                             <lvc:DefaultTooltip Background="#3F51B5" 
                                     Foreground="White"

@@ -4,11 +4,51 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SRS.Faculdade.APP.View.EstudantePages"
+      xmlns:system="clr-namespace:System;assembly=mscorlib"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TurmaView">
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
 
-    <Grid>
-        
+
+    <Grid Background="White">
+        <Grid Background="White" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Cabeçalho -->
+                <RowDefinition Height="*"/>
+                <!-- Conteúdo principal -->
+            </Grid.RowDefinitions>
+
+            <!-- Cabeçalho -->
+            <Border Grid.Row="0" Background="#D3D3D3" Height="80" CornerRadius="10" Margin="0 0 0 10">
+                <TextBlock Text="Bem-vindo, Aluno" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold"/>
+            </Border>
+
+            <!-- Conteúdo -->
+            <Grid Grid.Row="1">
+                <!-- Turmas do Aluno -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding TurmasVisiveis}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="#FF6DAEE0" BorderThickness="1" CornerRadius="5" Margin="5">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Nome}" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                                        <ToggleButton x:Name="Toggle" Content="{Binding Curso.Nome}" FontWeight="Bold" Background="#E0E0E0" HorizontalAlignment="Right" />
+                                        <StackPanel Visibility="{Binding IsChecked, ElementName=Toggle, Converter={StaticResource BoolToVisibilityConverter}}" Margin="10 0 0 0">
+                                            <TextBlock Text="{Binding Formatado}" TextWrapping="Wrap" Margin="0 5"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
     </Grid>
 </Page>

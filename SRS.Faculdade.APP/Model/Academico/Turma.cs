@@ -1,4 +1,4 @@
-﻿using SRS.Faculdade.APP.Model.Pessoa;
+﻿using SRS.Faculdade.APP.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,6 +20,7 @@ namespace SRS.Faculdade.APP.Model.Academico
         public Professor Professor {  get; set; }
         public Dictionary<string, Estudante> Estudantes { get; set; }
         public Dictionary<Estudante, HistoricoTurma> RegistoEstudante { get; set; }
+        public string Formatado => FormatarParaString();
 
         public Turma(int numero, DayOfWeek diaSemana, string horario, string sala, int capacidadeAlunos, Curso disciplinaAssociada, Professor professor)
         {
@@ -66,6 +67,21 @@ namespace SRS.Faculdade.APP.Model.Academico
             RegistoEstudante[estudante] = historico;
 
             return "Nota lançada com sucesso.";
+        }
+
+        private string FormatarParaString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($"Turma: {Nome}");
+            sb.AppendLine($"Disciplina: {DisciplinaDoCurso?.NomeDisciplina ?? "N/A"} (Código: {DisciplinaDoCurso?.CodigoDisciplina ?? "N/A"})");
+            sb.AppendLine($"Dia da semana: {DiaSemana}");
+            sb.AppendLine($"Horário: {Horario ?? "N/A"}");
+            sb.AppendLine($"Sala: {Sala ?? "N/A"}");
+            sb.AppendLine($"Capacidade: {CapacidadeEstudantes} estudantes");
+            sb.AppendLine($"Professor: {Professor?.Nome ?? "N/A"}");
+
+            return sb.ToString();
         }
     }
 }

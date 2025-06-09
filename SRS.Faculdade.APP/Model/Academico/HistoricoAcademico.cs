@@ -1,4 +1,4 @@
-﻿using SRS.Faculdade.APP.Model.Pessoa;
+﻿using SRS.Faculdade.APP.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

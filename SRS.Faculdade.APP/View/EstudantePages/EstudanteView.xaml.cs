@@ -98,7 +98,7 @@ namespace SRS.Faculdade.APP.View.EstudantePages
 
         private void MenuTurma_Click(object sender, RoutedEventArgs e)
         {
-            
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new TurmaView(Estudante));
         }
 
     }

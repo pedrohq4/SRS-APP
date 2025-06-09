@@ -1,9 +1,9 @@
-﻿using SRS.Faculdade.APP.Model.Pessoa;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SRS.Faculdade.APP.Model.Entities;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SRS.Faculdade.APP.Model.Academico

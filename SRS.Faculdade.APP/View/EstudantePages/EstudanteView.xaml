@@ -104,7 +104,7 @@
                    Margin="16,16,16,8"/>
 
                     <lvc:CartesianChart Grid.Row="1" Series="{Binding PresencaSeries}" 
-                            LegendLocation="Right" Margin="16,28,16,56"
+                            LegendLocation="Right" Margin="16,28,16,26"
                             Background="Transparent"
                             AnimationsSpeed="0:0:0.5">
                         <lvc:CartesianChart.AxisX>

@@ -60,8 +60,8 @@ namespace SRS.Faculdade.APP.View.EstudantePages
             DataContext = this;
             Estudante = estudante;
             service = new AcademicoService();
-            turmas = service.ObterTodasTurmas();
-            Resultados = Resultados = new ObservableCollection<Turma>(turmas);
+            turmas = service.ObterTodasTurmas().Where(t => !Estudante.TurmasMatriculadas.Any(m => m.Numero == t.Numero)).ToList();
+            Resultados = new ObservableCollection<Turma>(turmas);
         }
 
         private void Inicio_Click(object sender, RoutedEventArgs e)

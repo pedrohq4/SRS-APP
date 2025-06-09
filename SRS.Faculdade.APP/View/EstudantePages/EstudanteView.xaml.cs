@@ -62,7 +62,7 @@ namespace SRS.Faculdade.APP.View.EstudantePages
 
         private void CarregarDadosGrafico()
         {
-            var valores = new ChartValues<double> { 85, 90, 95, 80, 88, 92 };
+            var valores = new ChartValues<double>(Estudante.TurmasMatriculadas.Select(t => t.TotalAulas > 0 ? (double)t.Presenca / t.TotalAulas * 100 : 0));
             var meses = new List<string> { "Jan", "Fev", "Mar", "Abr", "Mai", "Jun" };
 
             PresencaSeries.Add(new ColumnSeries

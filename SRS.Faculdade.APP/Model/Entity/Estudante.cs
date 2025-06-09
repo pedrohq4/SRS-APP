@@ -24,7 +24,7 @@ namespace SRS.Faculdade.APP.Model.Entities
 
         public void AdcionarTurma(Turma turma)
         {
-            TurmasMatriculadas.Add(turma);
+            turma.Incricao(this);
         }
 
         public void RemoverTurma(Turma turma)

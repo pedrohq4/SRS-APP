@@ -35,9 +35,9 @@ namespace SRS.Faculdade.APP.Model.Academico
             return PreRequisitos.Count < 0;
         }
 
-        public void CriarTurma(int numeroTurma, DayOfWeek dia, string horario ,string duracao, string sala, int capacidade, Professor professor)
+        public void CriarTurma(int numeroTurma, DayOfWeek dia, string horario ,string duracao, string sala, int capacidade,int numeroDeAulas ,Professor professor)
         {
-            Turma turma = new Turma(numeroTurma, dia, horario, sala, capacidade, this, professor);
+            Turma turma = new Turma(numeroTurma, dia, horario, sala, capacidade,numeroDeAulas,this ,professor);
             TurmasOfertadas.Add(turma);
         }
     }

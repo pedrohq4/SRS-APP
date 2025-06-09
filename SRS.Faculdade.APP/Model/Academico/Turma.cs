@@ -14,41 +14,45 @@ namespace SRS.Faculdade.APP.Model.Academico
         public int Numero {  get; set; }              
         public DayOfWeek DiaSemana { get; set; }    
         public string Horario { get; set; }
-        public string Sala {  get; set; }     
-        public int CapacidadeEstudantes {  get; set; }       
+        public string Sala {  get; set; }         
         public Curso DisciplinaDoCurso {  get; set; }      
         public Professor Professor {  get; set; }
         public Dictionary<string, Estudante> Estudantes { get; set; }
+        public int CapacidadeAlunos { get; set; }
         public Dictionary<Estudante, HistoricoTurma> RegistoEstudante { get; set; }
+        public int Presenca {  get; set; }
+        public int TotalAulas { get; set; }
         public string Formatado => FormatarParaString();
 
-        public Turma(int numero, DayOfWeek diaSemana, string horario, string sala, int capacidadeAlunos, Curso disciplinaAssociada, Professor professor)
+        public Turma(int numero, DayOfWeek diaSemana, string horario, string sala, int capacidadeAlunos, int TotalAulas, Curso disciplinaAssociada, Professor professor)
         {
             Numero = numero;
             DiaSemana = diaSemana;
             Horario = horario;
             Sala = sala;
-            CapacidadeEstudantes = capacidadeAlunos;
             DisciplinaDoCurso = disciplinaAssociada;
             Professor = professor;
+            CapacidadeAlunos = capacidadeAlunos;
 
-            Estudantes = new Dictionary<string, Estudante>();
-            RegistoEstudante = new Dictionary<Estudante, HistoricoTurma>();
+            Estudantes = new Dictionary<string, Estudante>(capacidadeAlunos);
+            RegistoEstudante = new Dictionary<Estudante, HistoricoTurma>(capacidadeAlunos);
         }
 
         public string Incricao(Estudante estudante)
         {
             HistoricoAcademico historico = estudante.Historico;
+            if (Estudantes.Count >= CapacidadeAlunos)
+            {
+                throw new InvalidOperationException("A turma está cheia. Não é possível realizar a inscrição.");
+            }
 
-            if (estudante.EstaMatriculadoEmDisciplinaSemelhante(this))
+            if (Estudantes.ContainsKey(estudante.Matricula))
             {
-                return "Ja inscrito em DisciplinaSemelhante";
+                throw new InvalidOperationException("Você já está inscrito nesta turma.");
             }
-            else
-            {
-                Estudantes.Add(estudante.Nome, estudante);
-                return "Inscrito com sucesso";
-            }
+
+            Estudantes.Add(estudante.Matricula, estudante);
+            RegistoEstudante.Add(estudante, new HistoricoTurma())
         }
 
         public string LancarNota(Estudante estudante, string nota)
@@ -74,7 +78,7 @@ namespace SRS.Faculdade.APP.Model.Academico
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine($"Turma: {Nome}");
-            sb.AppendLine($"Disciplina: {DisciplinaDoCurso?.NomeDisciplina ?? "N/A"} (Código: {DisciplinaDoCurso?.CodigoDisciplina ?? "N/A"})");
+            sb.AppendLine($"Disciplina: {DisciplinaDoCurso.NomeDisciplina}");
             sb.AppendLine($"Dia da semana: {DiaSemana}");
             sb.AppendLine($"Horário: {Horario ?? "N/A"}");
             sb.AppendLine($"Sala: {Sala ?? "N/A"}");

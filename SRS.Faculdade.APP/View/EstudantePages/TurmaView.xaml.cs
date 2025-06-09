@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Controls;
 using SRS.Faculdade.APP.Model.Academico;
 using SRS.Faculdade.APP.Model.Entities;
@@ -23,25 +24,12 @@ namespace SRS.Faculdade.APP.View.EstudantePages
         }
 
         public Estudante Estudante { get; set; }
+        public string Saudacao => $"Bem vindo, {Estudante.Nome}!";
 
         public TurmaView(Estudante estudante)
         {
             InitializeComponent();
             Estudante = estudante;
-
-            if (Estudante.TurmasMatriculadas == null || Estudante.TurmasMatriculadas.Count == 0)
-            {
-                Estudante.AdcionarTurma(new Turma(
-                    201,
-                    DayOfWeek.Thursday,
-                    "10:30",
-                    "302",
-                    32,
-                    new Curso("DR1", "Matematica", 30),
-                    new Professor("João", "Silva", "0", "Professor", "Humanas")
-                ));
-            }
-
             TurmasVisiveis = new ObservableCollection<Turma>(Estudante.TurmasMatriculadas);
             DataContext = this;
         }
@@ -49,5 +37,20 @@ namespace SRS.Faculdade.APP.View.EstudantePages
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        private void Inicio_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new EstudanteView(Estudante));
+        }
+
+        private void MenuTurma_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(this);
+        }
+
+        private void ProcurarTurma_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new ProcurarView(Estudante));
+        }
     }
 }

@@ -83,5 +83,17 @@ namespace SRS.Faculdade.APP.Model.Academico
 
             return sb.ToString();
         }
+
+        public string FormatarParaStringBasico()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine($"Turma: {Nome}");
+            sb.AppendLine($"Disciplina: {DisciplinaDoCurso?.NomeDisciplina ?? "N/A"} (Código: {DisciplinaDoCurso?.CodigoDisciplina ?? "N/A"})");
+            sb.AppendLine($"Dia da semana: {DiaSemana}");
+            sb.AppendLine($"Professor: {Professor?.Nome ?? "N/A"}");
+
+            return sb.ToString();
+        }
     }
 }

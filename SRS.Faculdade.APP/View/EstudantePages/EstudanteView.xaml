@@ -23,7 +23,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="SearchTurmas" Click="MenuTurma_Click" Height="100" Width="100">
+            <Button Grid.Column="0" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="Home" Click="Inicio_Click" Height="100" Width="100">
                 <StackPanel Orientation="Vertical" Margin="0,7,0,0">
                     <materialDesign:PackIcon Kind="Home" Foreground="Black" Height="50" Width="50" HorizontalAlignment="Center"/>
                     <TextBlock Text="Inicio" Margin="2,0,0,0" Foreground="Black" FontSize="15" Height="21" Width="37"/>
@@ -37,7 +37,7 @@
                 </StackPanel>
             </Button>
 
-            <Button Grid.Column="2" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="SearchTurmas" Click="MenuTurma_Click" Height="100" Width="140">
+            <Button Grid.Column="2" Style="{StaticResource MaterialDesignFlatButton}" ToolTip="SearchTurmas" Click="ProcurarTurma_Click" Height="100" Width="140">
                 <StackPanel Orientation="Vertical" Margin="0,8,0,0">
                     <materialDesign:PackIcon Kind="Search" Foreground="Black" Height="50" Width="50" HorizontalAlignment="Center"/>
                     <TextBlock Text="Procurar Turmas" Foreground="Black" FontSize="13" Height="50" Width="110"/>
@@ -47,13 +47,17 @@
             <TextBlock Style="{StaticResource MaterialDesignTitleLargeTextBlock}" Grid.Column="3" Text="{Binding Saudacao}" FontSize="40" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
         </Grid>
         <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="329*"/>
+                <ColumnDefinition Width="55*"/>
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="100*"/>
                 <RowDefinition Height="142*"/>
             </Grid.RowDefinitions>
 
 
-            <WrapPanel Margin="0,80,0,20" HorizontalAlignment="Center" Width="680" >
+            <WrapPanel Margin="620,80,0,20" HorizontalAlignment="Left" Width="680" >
                 <materialDesign:Card Width="150" Height="100" Margin="10" UniformCornerRadius="10" Background="{DynamicResource MaterialDesignPaper}">
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                         <TextBlock Text="Cursos Inscritos" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" HorizontalAlignment="Center"/>
@@ -88,7 +92,7 @@
             </WrapPanel>
 
             <materialDesign:Card Grid.Row="1" Margin="0,20,0,0" UniformCornerRadius="10" 
-                     Background="{DynamicResource MaterialDesignPaper}" >
+                     Background="{DynamicResource MaterialDesignPaper}" Grid.ColumnSpan="2" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="21*"/>
@@ -121,7 +125,7 @@
                                 </lvc:Axis.Separator>
                             </lvc:Axis>
                         </lvc:CartesianChart.AxisY>
- 
+
                         <lvc:CartesianChart.DataTooltip>
                             <lvc:DefaultTooltip Background="#3F51B5" 
                                     Foreground="White"

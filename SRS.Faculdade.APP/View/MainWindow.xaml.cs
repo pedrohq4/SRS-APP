@@ -1,5 +1,6 @@
 ﻿using SRS.Faculdade.APP.Model.Entities;
 using SRS.Faculdade.APP.Services;
+using SRS.Faculdade.APP.View;
 using SRS.Faculdade.APP.View.EstudantePages;
 using System.Windows;
 
@@ -14,8 +15,8 @@ namespace SRS.Faculdade.APP
             InitializeComponent();
 
             Service = new UsuarioService();
-            Pessoa Usuario = Service.ObterPessoaPorId();
-            FramePrincipal.Navigate(new EstudanteView((Estudante)Usuario));
+            Pessoa usuario = Service.ObterPessoaPorId();
+            FramePrincipal.Navigate(new EstudanteView((Estudante)usuario));
         }
     }
 }

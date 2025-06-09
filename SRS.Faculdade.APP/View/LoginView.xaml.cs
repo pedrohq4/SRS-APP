@@ -11,8 +11,6 @@ namespace SRS.Faculdade.APP.View
     {
         UsuarioService _Service = new UsuarioService();
         Pessoa Pessoa;
-        private Estudante estudante;
-        private Professor professor;
 
         public LoginView()
         {
@@ -55,7 +53,7 @@ namespace SRS.Faculdade.APP.View
             {
                 return false;
             }
-
+            
             return true;
         }
 

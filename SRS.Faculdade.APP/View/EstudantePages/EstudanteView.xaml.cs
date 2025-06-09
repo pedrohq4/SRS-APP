@@ -14,17 +14,6 @@ namespace SRS.Faculdade.APP.View.EstudantePages
         public Estudante Estudante { get; set; }
         public string Saudacao => $"Bem vindo, {Estudante.Nome}!";
 
-        private DateTime _dataAtual = DateTime.Today;
-        public DateTime DataAtual
-        {
-            get => _dataAtual;
-            set
-            {
-                _dataAtual = value;
-                OnPropertyChanged();
-            }
-        }
-
         private SeriesCollection _presencaSeries;
         public SeriesCollection PresencaSeries
         {
@@ -96,10 +85,19 @@ namespace SRS.Faculdade.APP.View.EstudantePages
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        private void Inicio_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(this);
+        }
+
         private void MenuTurma_Click(object sender, RoutedEventArgs e)
         {
             ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new TurmaView(Estudante));
         }
 
+        private void ProcurarTurma_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new ProcurarView(Estudante));
+        }
     }
 }

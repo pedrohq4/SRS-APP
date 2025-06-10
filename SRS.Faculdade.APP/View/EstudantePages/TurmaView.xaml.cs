@@ -1,12 +1,13 @@
-﻿using System;
+﻿using SRS.Faculdade.APP.Model.Academico;
+using SRS.Faculdade.APP.Model.Entities;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using SRS.Faculdade.APP.Model.Academico;
-using SRS.Faculdade.APP.Model.Entities;
+using static SRS.Faculdade.APP.MainWindow;
 
 namespace SRS.Faculdade.APP.View.EstudantePages
 {
@@ -24,14 +25,13 @@ namespace SRS.Faculdade.APP.View.EstudantePages
         }
 
         public Estudante Estudante { get; set; }
-        public string Saudacao => $"Bem vindo, {Estudante.Nome}!";
 
-        public TurmaView(Estudante estudante)
+        public TurmaView()
         {
             InitializeComponent();
-            Estudante = estudante;
-            TurmasVisiveis = new ObservableCollection<Turma>(Estudante.TurmasMatriculadas);
             DataContext = this;
+            Estudante = AppState.EstudanteLogado;
+            TurmasVisiveis = new ObservableCollection<Turma>(Estudante.TurmasMatriculadas);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -40,7 +40,7 @@ namespace SRS.Faculdade.APP.View.EstudantePages
 
         private void Inicio_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new EstudanteView(Estudante));
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new EstudanteView());
         }
 
         private void MenuTurma_Click(object sender, RoutedEventArgs e)
@@ -50,7 +50,7 @@ namespace SRS.Faculdade.APP.View.EstudantePages
 
         private void ProcurarTurma_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new ProcurarView(Estudante));
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new ProcurarView());
         }
     }
 }

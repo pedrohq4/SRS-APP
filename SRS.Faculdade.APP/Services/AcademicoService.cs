@@ -15,6 +15,7 @@ namespace SRS.Faculdade.APP.Services
 
         public AcademicoService()
         {
+            if(_Turmas == null)
             _Turmas = new List<Turma>()
             {
                 new Turma(201, DayOfWeek.Thursday,"10:30","302",32, 20,new Curso("DR1", "Matematica", 30), new Professor("João", "Silva", "0", "Professor", "Humanas")),

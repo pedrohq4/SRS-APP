@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SRS.Faculdade.APP.Model.Academico;
+using SRS.Faculdade.APP.Model.Entities;
+using SRS.Faculdade.APP.Services;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,9 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SRS.Faculdade.APP.Model.Academico;
-using SRS.Faculdade.APP.Model.Entities;
-using SRS.Faculdade.APP.Services;
+using static SRS.Faculdade.APP.MainWindow;
 
 namespace SRS.Faculdade.APP.View.EstudantePages
 {
@@ -30,7 +31,7 @@ namespace SRS.Faculdade.APP.View.EstudantePages
 
         private string _textoBusca;
 
-        private AcademicoService service;
+        private AcademicoService _service;
 
         private IList<Turma> turmas;
 
@@ -54,24 +55,25 @@ namespace SRS.Faculdade.APP.View.EstudantePages
                 OnPropertyChanged();
             }
         }
-        public ProcurarView(Estudante estudante)
+        public ProcurarView()
         {
             InitializeComponent();
             DataContext = this;
+            var estudante = AppState.EstudanteLogado;
             Estudante = estudante;
-            service = new AcademicoService();
-            turmas = service.ObterTodasTurmas().Where(t => !Estudante.TurmasMatriculadas.Any(m => m.Numero == t.Numero)).ToList();
+            _service = AppState.AcademicoService;
+            turmas = _service.ObterTodasTurmas().Where(t => !Estudante.TurmasMatriculadas.Any(m => m.Numero == t.Numero)).ToList();
             Resultados = new ObservableCollection<Turma>(turmas);
         }
 
         private void Inicio_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new EstudanteView(Estudante));
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new EstudanteView());
         }
 
         private void MenuTurma_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new TurmaView(Estudante));
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new TurmaView());
         }
 
         private void ProcurarTurma_Click(object sender, RoutedEventArgs e)
@@ -93,18 +95,25 @@ namespace SRS.Faculdade.APP.View.EstudantePages
 
         private void Inscrever_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button botao && botao.Tag is Turma turma)
+            try
             {
-                bool jaMatriculado = Estudante.TurmasMatriculadas.Any(t => t.Numero == turma.Numero);
-                if (!jaMatriculado)
+                if (sender is Button botao && botao.Tag is Turma turma)
                 {
-                    Estudante.AdcionarTurma(turma);
-                    MessageBox.Show($"Inscrito na turma de {turma.DisciplinaDoCurso.NomeDisciplina}!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    bool jaMatriculado = Estudante.TurmasMatriculadas.Any(t => t.Numero == turma.Numero);
+                    if (!jaMatriculado)
+                    {
+                        Estudante.AdcionarTurma(turma);
+                        MessageBox.Show($"Inscrito na turma de {turma.DisciplinaDoCurso.NomeDisciplina}!", "Sucesso", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Ja inscrito na turma");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show($"Você já está inscrito nesta turma!", "Aviso", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao inscrever na turma: {ex.Message}", "Erro", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -13,13 +13,11 @@ namespace SRS.Faculdade.APP.Model.Academico
         public string Nota {  get; set; }
         public Estudante Estudante { get; set; }
         public Turma Turma { get; set; }
-        public HistoricoAcademico Historico {  get; set; }
 
-        public HistoricoTurma(string nota, Estudante estudante, Turma turma)
+        public HistoricoTurma(Estudante estudante, Turma turma)
         {
-            HistoricoAcademico historico = estudante.Historico;
-            Historico = historico;
-            historico.AdcionarHistoricoTurma(this);
+            Turma = turma;
+            Estudante = estudante;
         }
 
         public static bool EhNotaValida(string nota)

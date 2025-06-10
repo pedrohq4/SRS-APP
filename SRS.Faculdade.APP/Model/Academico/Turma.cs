@@ -17,7 +17,7 @@ namespace SRS.Faculdade.APP.Model.Academico
         public string Sala {  get; set; }         
         public Curso DisciplinaDoCurso {  get; set; }      
         public Professor Professor {  get; set; }
-        public Dictionary<string, Estudante> Estudantes { get; set; }
+        public Dictionary<string, Estudante> EstudantesInscritos { get; set; }
         public int CapacidadeAlunos { get; set; }
         public Dictionary<Estudante, HistoricoTurma> RegistoEstudante { get; set; }
         public int Presenca {  get; set; }
@@ -34,43 +34,42 @@ namespace SRS.Faculdade.APP.Model.Academico
             Professor = professor;
             CapacidadeAlunos = capacidadeAlunos;
 
-            Estudantes = new Dictionary<string, Estudante>(capacidadeAlunos);
+            EstudantesInscritos = new Dictionary<string, Estudante>(capacidadeAlunos);
             RegistoEstudante = new Dictionary<Estudante, HistoricoTurma>(capacidadeAlunos);
         }
 
-        public string Incricao(Estudante estudante)
+        public void Incricao(Estudante estudante)
         {
-            HistoricoAcademico historico = estudante.Historico;
-            if (Estudantes.Count >= CapacidadeAlunos)
+            if (EstudantesInscritos.Count >= CapacidadeAlunos)
             {
                 throw new InvalidOperationException("A turma está cheia. Não é possível realizar a inscrição.");
             }
-
-            if (Estudantes.ContainsKey(estudante.Matricula))
+            else if (EstudantesInscritos.ContainsKey(estudante.Cpf))
             {
                 throw new InvalidOperationException("Você já está inscrito nesta turma.");
             }
 
-            Estudantes.Add(estudante.Matricula, estudante);
-            RegistoEstudante.Add(estudante, new HistoricoTurma())
+            estudante.TurmasMatriculadas.Add(this);
+            EstudantesInscritos.Add(estudante.Cpf, estudante);
+            RegistoEstudante.Add(estudante, new HistoricoTurma(estudante, this));
         }
 
-        public string LancarNota(Estudante estudante, string nota)
+        public bool LancarNota(Estudante estudante, string nota)
         {
             if (!HistoricoTurma.EhNotaValida(nota))
             {
-                return "Nota em padrão errado!";
+                throw new InvalidOperationException("Nota em padrão errado!");
             }
 
             if (RegistoEstudante.ContainsKey(estudante))
             {
-                return "Nota já lançada para este estudante.";
+                throw new InvalidOperationException("Nota já lançada para este estudante.");
             }
 
-            var historico = new HistoricoTurma(nota, estudante, this);
+            var historico = new HistoricoTurma(estudante, this);
             RegistoEstudante[estudante] = historico;
 
-            return "Nota lançada com sucesso.";
+            return true;
         }
 
         private string FormatarParaString()
@@ -78,11 +77,11 @@ namespace SRS.Faculdade.APP.Model.Academico
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine($"Turma: {Nome}");
-            sb.AppendLine($"Disciplina: {DisciplinaDoCurso.NomeDisciplina}");
+            sb.AppendLine($"Disciplina: {DisciplinaDoCurso?.NomeDisciplina ?? "N/A"}");
             sb.AppendLine($"Dia da semana: {DiaSemana}");
             sb.AppendLine($"Horário: {Horario ?? "N/A"}");
             sb.AppendLine($"Sala: {Sala ?? "N/A"}");
-            sb.AppendLine($"Capacidade: {CapacidadeEstudantes} estudantes");
+            sb.AppendLine($"Capacidade: {CapacidadeAlunos} estudantes");
             sb.AppendLine($"Professor: {Professor?.Nome ?? "N/A"}");
 
             return sb.ToString();

@@ -8,15 +8,18 @@ namespace SRS.Faculdade.APP
 {
     public partial class MainWindow : Window
     {
-        private UsuarioService Service;
-
+        public static class AppState
+        {
+            public static Estudante EstudanteLogado { get; set; }
+            public static AcademicoService AcademicoService { get; set; }
+            public static UsuarioService UsuarioService { get; set; }
+        }
         public MainWindow()
         {
             InitializeComponent();
-
-            Service = new UsuarioService();
-            Pessoa usuario = Service.ObterPessoaPorId();
-            FramePrincipal.Navigate(new EstudanteView((Estudante)usuario));
+            AppState.AcademicoService = new AcademicoService();
+            AppState.UsuarioService = new UsuarioService();
+            FramePrincipal.Navigate(new LoginView());
         }
     }
 }

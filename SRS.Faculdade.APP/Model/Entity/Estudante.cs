@@ -4,10 +4,10 @@ namespace SRS.Faculdade.APP.Model.Entities
 {
     public class Estudante : Pessoa
     {
-        public string Curso { get; private set; }                 
-        public string Titulo { get; private set; }         
-        public HistoricoAcademico Historico { get; private set; }
-        public List<Turma> TurmasMatriculadas { get; private set; }
+        public string Curso { get; set; }                 
+        public string Titulo { get; set; }         
+        public HistoricoAcademico Historico { get; set; }
+        public List<Turma> TurmasMatriculadas { get; set; }
 
         public Estudante(string nome, string sobrenome, string cpf, string titulo, string curso) : base(nome, sobrenome, cpf)
         {
@@ -24,6 +24,7 @@ namespace SRS.Faculdade.APP.Model.Entities
 
         public void AdcionarTurma(Turma turma)
         {
+            
             turma.Incricao(this);
         }
 

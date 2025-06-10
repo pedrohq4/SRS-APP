@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using static SRS.Faculdade.APP.MainWindow;
 
 namespace SRS.Faculdade.APP.View.EstudantePages
 {
@@ -47,10 +48,11 @@ namespace SRS.Faculdade.APP.View.EstudantePages
             }
         }
 
-        public EstudanteView(Estudante estudante)
+        public EstudanteView()
         {
             InitializeComponent();
             DataContext = this;
+            var estudante = AppState.EstudanteLogado;
             Estudante = estudante;
 
             PresencaSeries = new SeriesCollection();
@@ -62,21 +64,21 @@ namespace SRS.Faculdade.APP.View.EstudantePages
 
         private void CarregarDadosGrafico()
         {
-            var valores = new ChartValues<double>(Estudante.TurmasMatriculadas.Select(t => t.TotalAulas > 0 ? (double)t.Presenca / t.TotalAulas * 100 : 0));
-            var meses = new List<string> { "Jan", "Fev", "Mar", "Abr", "Mai", "Jun" };
+            //var valores = new ChartValues<double>(Estudante.TurmasMatriculadas.Select(t => t.TotalAulas > 0 ? (double)t.Presenca / t.TotalAulas * 100 : 0));
+            //var meses = new List<string> { "Jan", "Fev", "Mar", "Abr", "Mai", "Jun" };
 
-            PresencaSeries.Add(new ColumnSeries
-            {
-                Title = "Presenças",
-                Values = valores,
-                Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3F51B5")),
-                Stroke = new SolidColorBrush(Colors.White),
-                StrokeThickness = 1,
-                DataLabels = true,
-                LabelPoint = point => point.Y + "%"
-            });
+            //PresencaSeries.Add(new ColumnSeries
+            //{
+            //    Title = "Presenças",
+            //    Values = valores,
+            //    Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3F51B5")),
+            //    Stroke = new SolidColorBrush(Colors.White),
+            //    StrokeThickness = 1,
+            //    DataLabels = true,
+            //    LabelPoint = point => point.Y + "%"
+            //});
 
-            LabelsMeses = meses;
+            //LabelsMeses = meses;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -92,12 +94,12 @@ namespace SRS.Faculdade.APP.View.EstudantePages
 
         private void MenuTurma_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new TurmaView(Estudante));
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new TurmaView());
         }
 
         private void ProcurarTurma_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new ProcurarView(Estudante));
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new ProcurarView());
         }
     }
 }

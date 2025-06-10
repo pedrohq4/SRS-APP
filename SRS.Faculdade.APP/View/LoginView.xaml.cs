@@ -4,17 +4,18 @@ using SRS.Faculdade.APP.Services;
 using SRS.Faculdade.APP.View.EstudantePages;
 using System.Windows;
 using System.Windows.Controls;
+using static SRS.Faculdade.APP.MainWindow;
 
 namespace SRS.Faculdade.APP.View
 {
     public partial class LoginView : Page
     {
-        UsuarioService _Service = new UsuarioService();
-        Pessoa Pessoa;
+        UsuarioService _usuarioService;
 
         public LoginView()
         {
             InitializeComponent();
+            _usuarioService = AppState.UsuarioService;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -23,7 +24,9 @@ namespace SRS.Faculdade.APP.View
             {
                 if (VerificadorUsuario(email.Text)[1] == "Aluno.edu")
                 {
-                    ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new EstudanteView((Estudante)Pessoa));
+
+                    AppState.EstudanteLogado = (Estudante)_usuarioService.ObterPessoaPorEmail(email.Text);
+                    ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new EstudanteView());
                     Application.Current.MainWindow.WindowState = WindowState.Maximized;
                 }
 
@@ -42,14 +45,14 @@ namespace SRS.Faculdade.APP.View
 
         private bool UsuarioExiste(string email, string senha)
         {
-            Pessoa = _Service.ObterPessoaPorEmail(email);
+            Pessoa pessoa = _usuarioService.ObterPessoaPorEmail(email);
 
-            if (Pessoa == null || Pessoa.Usuario == null)
+            if (pessoa == null || pessoa.Usuario == null)
             {
                 return false;
             }
 
-            if (Pessoa.Usuario.Email != email || Pessoa.Usuario.Senha != senha)
+            if (pessoa.Usuario.Email != email || pessoa.Usuario.Senha != senha)
             {
                 return false;
             }

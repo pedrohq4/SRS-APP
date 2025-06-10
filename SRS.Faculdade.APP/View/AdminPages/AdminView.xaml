@@ -1,0 +1,120 @@
+<Page x:Class="SRS.Faculdade.APP.View.AdminPages.AdminView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="AdminView">
+    <Grid Background="{DynamicResource MaterialDesign.Brush.Background}">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="NavBar" Height="100" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Background="#FF6DAEE0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Style="{StaticResource MaterialDesignFlatButton}" Click="Inicio_Click" ToolTip="Home" Height="100" Width="100">
+                <StackPanel Orientation="Vertical" Margin="0,7,0,0">
+                    <materialDesign:PackIcon Kind="Home" Foreground="Black" Height="50" Width="50" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Inicio" Margin="2,0,0,0" Foreground="Black" FontSize="15" Height="21" Width="37"/>
+                </StackPanel>
+            </Button>
+
+            <Button Grid.Column="2" Style="{StaticResource MaterialDesignFlatButton}" Click="ProcurarTurma_Click" ToolTip="SearchTurmas" Height="100" Width="140">
+                <StackPanel Orientation="Vertical" Margin="0,8,0,0">
+                    <materialDesign:PackIcon Kind="Search" Foreground="Black" Height="50" Width="50" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Procurar Turmas" Foreground="Black" FontSize="13" Height="50" Width="110"/>
+                </StackPanel>
+            </Button>
+
+            <TextBlock Style="{StaticResource MaterialDesignTitleLargeTextBlock}" Grid.Column="3" Text="{Binding Saudacao}" FontSize="40" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+        <Border Background="LightGray" Width="800" Height="670" CornerRadius="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Text="Inclusão" Style="{StaticResource MaterialDesignHeadline4TextBlock}" HorizontalAlignment="Center" Margin="0 0 0 20"/>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 0 0 20">
+                    <RadioButton Content="Turma" GroupName="CadastroType" IsChecked="True" Margin="0 0 20 0" Checked="RadioButton_Checked" x:Name="rbTurma"/>
+                    <RadioButton Content="Pessoa" GroupName="CadastroType" Checked="RadioButton_Checked" x:Name="rbPessoa"/>
+                </StackPanel>
+
+                <Grid Grid.Row="2">
+                    <StackPanel x:Name="panelTurma" Visibility="Collapsed">
+                            <TextBox materialDesign:HintAssist.Hint="Código da Turma" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                              Margin="0 0 0 10" x:Name="txtCodigoTurma"/>
+                            <ComboBox materialDesign:HintAssist.Hint="Dia da Semana" Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                               Margin="0 0 0 10" x:Name="cmbDiaSemana">
+                            <ComboBoxItem Content="Segunda-feira"/>
+                            <ComboBoxItem Content="Terça-feira"/>
+                            <ComboBoxItem Content="Quarta-feira"/>
+                            <ComboBoxItem Content="Quinta-feira"/>
+                            <ComboBoxItem Content="Sexta-feira"/>
+                            <ComboBoxItem Content="Sábado"/>
+                            <ComboBoxItem Content="Domingo"/>
+                        </ComboBox>
+
+                        <TextBox materialDesign:HintAssist.Hint="Horário de Início (HH:mm)" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                               Margin="0 0 0 10" x:Name="txtHorarioInicio"/>
+
+                        <TextBox materialDesign:HintAssist.Hint="Número da Sala" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                               Margin="0 0 0 10" x:Name="txtNumeroSala"/>
+
+                        <TextBox materialDesign:HintAssist.Hint="Capacidade de Alunos" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                               Margin="0 0 0 10" x:Name="txtCapacidadeAlunos"/>
+
+                        <TextBox materialDesign:HintAssist.Hint="Número de Aulas" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                               Margin="0 0 0 10" x:Name="txtNumeroAulas"/>
+
+                        <TextBox materialDesign:HintAssist.Hint="Curso" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                               Margin="0 0 0 10" x:Name="txtCursoDaTurma"/>
+
+                        <TextBox materialDesign:HintAssist.Hint="Professor (Digite o Id de funcionario)" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                               Margin="0 0 0 10" x:Name="txtProfessor"/>
+
+                        </StackPanel>
+
+                    <StackPanel x:Name="panelPessoa" Visibility="Visible">
+                        <TextBox materialDesign:HintAssist.Hint="Nome" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 Margin="0 0 0 10" x:Name="txtNome"/>
+                            <TextBox materialDesign:HintAssist.Hint="Sobrenome" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     Margin="0 0 0 10" x:Name="txtSobreNome"/>
+                            <TextBox materialDesign:HintAssist.Hint="CPF" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     Margin="0 0 0 10" x:Name="txtCPF"/>
+                        <ComboBox materialDesign:HintAssist.Hint="Tipo de usuario" Style="{StaticResource MaterialDesignOutlinedComboBox}" Margin="0 0 0 10" x:Name="cmbTipoPessoa">
+                            <ComboBoxItem Content="Estudante"/>
+                            <ComboBoxItem Content="Professor"/>
+                            <ComboBoxItem Content="Admin"/>
+                        </ComboBox>
+                            <TextBox materialDesign:HintAssist.Hint="Curso" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     Margin="0 0 0 10" x:Name="txtCursoDoEstudante"/>
+                            <TextBox materialDesign:HintAssist.Hint="Tipo de graduação" Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                     Margin="0 0 0 10" x:Name="txtTipoGraduacao"/>
+                        </StackPanel>
+                </Grid>
+
+                <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 20 0 0">
+                    <Button Content="Cancelar" Style="{StaticResource MaterialDesignOutlinedButton}" Margin="0 0 10 0" Click="Cancelar_Click"/>
+                    <Button Content="Salvar" Style="{StaticResource MaterialDesignRaisedButton}" Click="Salvar_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+    </Grid>
+</Page>
+

@@ -1,6 +1,7 @@
 ﻿using SRS.Faculdade.APP.View;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,24 @@ namespace SRS.Faculdade.APP.Model.Entities
 
         public string GerarEmail(string nome, string sobrenome, TipoUsuario tipoUsuario)
         {
+            string RemoverAcentos(string texto)
+            {
+                var normalized = texto.Normalize(NormalizationForm.FormD);
+                var sb = new StringBuilder();
+
+                foreach (var c in normalized)
+                {
+                    var unicodeCategory = CharUnicodeInfo.GetUnicodeCategory(c);
+                    if (unicodeCategory != UnicodeCategory.NonSpacingMark)
+                        sb.Append(c);
+                }
+
+                return sb.ToString().Normalize(NormalizationForm.FormC);
+            }
+
+            nome = RemoverAcentos(nome);
+            sobrenome = RemoverAcentos(sobrenome);
+
             string sobrenomeFormatado;
 
             if (sobrenome.Contains(' '))
@@ -41,11 +60,12 @@ namespace SRS.Faculdade.APP.Model.Entities
                 sobrenomeFormatado = sobrenome;
             }
 
-            if(tipoUsuario is TipoUsuario.Aluno)
+            if (tipoUsuario is TipoUsuario.Estudante)
                 return $"{nome.ToLower()}.{sobrenomeFormatado.ToLower()}@Aluno.edu";
-
-            else if(tipoUsuario is TipoUsuario.Professor)
+            else if (tipoUsuario is TipoUsuario.Professor)
                 return $"{nome.ToLower()}.{sobrenomeFormatado.ToLower()}@Professor.edu";
+            else if(tipoUsuario is TipoUsuario.Admin)
+                return $"{nome.ToLower()}.{sobrenomeFormatado.ToLower()}@Admin.edu";
 
             return string.Empty;
         }

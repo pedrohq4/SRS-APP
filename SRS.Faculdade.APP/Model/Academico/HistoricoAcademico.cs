@@ -10,24 +10,37 @@ namespace SRS.Faculdade.APP.Model.Academico
 {
     public class HistoricoAcademico
     {
-        private List<HistoricoTurma> Historico;
+        public List<HistoricoTurma> Turmas;
         public Estudante Estudante {  get; set; }
 
         public HistoricoAcademico(Estudante estudante)
         {
             Estudante = estudante;
 
-            Historico = new List<HistoricoTurma>();
+            Turmas = new List<HistoricoTurma>();
         }
 
         public bool FoiConcluido(Curso curso)
         {
-            return Historico.Where(hs => hs.Turma.DisciplinaDoCurso == curso).Any(te => HistoricoTurma.FoiAprovado(te.Nota));
+            var historicos = Turmas.Where(hs => hs.Turma.DisciplinaDoCurso == curso);
+
+            foreach (var historico in historicos)
+            {
+                var notas = new[] { historico.Nota1, historico.Nota2, historico.Nota3, historico.Nota4 };
+
+                if (notas.Any(nota => nota == null))
+                    return false;
+
+                if (notas.Any(nota => HistoricoTurma.FoiAprovado(nota)))
+                    return true;
+            }
+
+            return false;
         }
 
         public void AdcionarHistoricoTurma(HistoricoTurma historico)
         {
-            Historico.Add(historico);
+            Turmas.Add(historico);
         }
     }
 }

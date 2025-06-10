@@ -9,20 +9,24 @@ namespace SRS.Faculdade.APP.Model.Entities
 {
     public class Professor : Pessoa
     {
-        public string Titulo {  get; private set; }
-        public string Departamento { get; private set; }
-        public Dictionary<string, Turma> TurmasLecionadas {  get; private set; }
+        public int IdFuncionario { get; set; }
+        public string Titulo {  get; set; }
+        public string Departamento { get; set; }
+        public Dictionary<string, Turma> TurmasLecionadas {  get; set; }
+        public string Formatado { get; set; }
 
-        public Professor(string nome,string sobrenome , string cpf, string titulo, string departamento) : base(nome, sobrenome, cpf)
+        public Professor(int idFuncionario, string nome,string sobrenome , string cpf, string titulo, string departamento) : base(nome, sobrenome, cpf)
         {
+            IdFuncionario = idFuncionario;
             Titulo = titulo;
             Departamento = departamento;
             TurmasLecionadas = new Dictionary<string, Turma>();
+            Formatado = FormatarParaString();
         }
 
         public void AdcionarTurma(Turma turma)
         {
-            TurmasLecionadas.Add(turma.Nome, turma);
+            turma.Incricao(this);
         }
 
         public void RemoverTurma(string nomeDaTurma)
@@ -30,9 +34,9 @@ namespace SRS.Faculdade.APP.Model.Entities
             TurmasLecionadas.Remove(nomeDaTurma);
         }
 
-        public override string GetDadosAdcionais()
+        public override string FormatarParaString()
         {
-            return $"Titulo: {Titulo}\nDepartamento: {Departamento}";
+            return $"Professor: {Nome} {SobreNome}";
         }
 
         public string GetTodasTurmas()

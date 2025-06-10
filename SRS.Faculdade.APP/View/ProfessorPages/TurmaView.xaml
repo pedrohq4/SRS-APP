@@ -1,19 +1,23 @@
-﻿<Page x:Class="SRS.Faculdade.APP.View.EstudantePages.ProcurarView"
+﻿<Page x:Class="SRS.Faculdade.APP.View.ProfessorPages.TurmaView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SRS.Faculdade.APP.View.EstudantePages"
+      xmlns:local="clr-namespace:SRS.Faculdade.APP.View.ProfessorPages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="1080" d:DesignWidth="1920"
-      Title="ProcurarView">
+      Title="TurmasView">
+
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
+
 
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition x:Name="NavBar" Height="100" />
-            <RowDefinition Height="38*"/>
-            <RowDefinition Height="207*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Background="#FF6DAEE0" >
@@ -49,32 +53,18 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0 0 0 0" HorizontalAlignment="Center" Height="auto">
-                <TextBox Width="400"
-                 Height="40"
-                 Margin="0 0 10 0"
-                 FontSize="16"
-                 Padding="10"
-                 Text="{Binding TextoBusca, UpdateSourceTrigger=PropertyChanged}" />
-                <Button Content="Buscar" Width="100" Height="40" Click="Buscar_Click"/>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="2">
+            <!-- Turmas do Aluno -->
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <ItemsControl ItemsSource="{Binding Resultados}">
+                <ItemsControl ItemsSource="{Binding TurmasVisiveis}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Margin="0 5" Padding="15" Background="#E0E0E0" CornerRadius="10">
+                            <Border BorderBrush="#FF6DAEE0" BorderThickness="1" CornerRadius="5" Margin="5">
                                 <StackPanel>
-                                    <TextBlock Text="{Binding Nome}" FontSize="18" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding Curso.Nome}"/>
-                                    <TextBlock Text="{Binding Professor.Formatado}" FontSize="14"/>
-                                    <TextBlock Text="{Binding Sala}" FontSize="14" Margin="0 5"/>
-                                    <Button Content="Inscrever-se"
-                                HorizontalAlignment="Left"
-                                Padding="10,2"
-                                Tag="{Binding}" 
-                                Click="Inscrever_Click"/>
+                                    <TextBlock Text="{Binding DisciplinaDoCurso.NomeDisciplina}" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                                    <ToggleButton x:Name="Toggle" FontWeight="Bold" Background="#E0E0E0" HorizontalAlignment="Right" />
+                                    <StackPanel Visibility="{Binding IsChecked, ElementName=Toggle, Converter={StaticResource BoolToVisibilityConverter}}" Margin="10 0 0 0">
+                                        <TextBlock Text="{Binding Formatado}" TextWrapping="Wrap" Margin="0 5"/>
+                                    </StackPanel>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
@@ -82,6 +72,5 @@
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
-
     </Grid>
 </Page>

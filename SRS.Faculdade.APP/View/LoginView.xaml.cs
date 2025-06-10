@@ -1,7 +1,9 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using SRS.Faculdade.APP.Model.Entities;
 using SRS.Faculdade.APP.Services;
+using SRS.Faculdade.APP.View.AdminPages;
 using SRS.Faculdade.APP.View.EstudantePages;
+using SRS.Faculdade.APP.View.ProfessorPages;
 using System.Windows;
 using System.Windows.Controls;
 using static SRS.Faculdade.APP.MainWindow;
@@ -32,12 +34,16 @@ namespace SRS.Faculdade.APP.View
 
                 else if (VerificadorUsuario(email.Text)[1] == "Professor.edu")
                 {
-
+                    AppState.ProfessorLogado = (Professor)_usuarioService.ObterPessoaPorEmail(email.Text);
+                    ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new ProfessorView());
+                    Application.Current.MainWindow.WindowState = WindowState.Maximized;
                 }
 
-                else if (VerificadorUsuario(email.Text)[1] == "Adm.edu")
+                else if (VerificadorUsuario(email.Text)[1] == "Admin.edu")
                 {
-
+                    AppState.AdminLogado = (Admin)_usuarioService.ObterPessoaPorEmail(email.Text);
+                    ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new AdminView());
+                    Application.Current.MainWindow.WindowState = WindowState.Maximized;
                 }
             }
             TxtError.Text = "Email e/ou senha invalido";

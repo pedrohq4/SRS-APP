@@ -5,19 +5,19 @@ namespace SRS.Faculdade.APP.Model.Entities
     public class Estudante : Pessoa
     {
         public string Curso { get; set; }                 
-        public string Titulo { get; set; }         
+        public string TipoGraduacao { get; set; }         
         public HistoricoAcademico Historico { get; set; }
         public List<Turma> TurmasMatriculadas { get; set; }
 
-        public Estudante(string nome, string sobrenome, string cpf, string titulo, string curso) : base(nome, sobrenome, cpf)
+        public Estudante(string nome, string sobrenome, string cpf, string tipoGraduacao, string curso) : base(nome, sobrenome, cpf)
         {
             Curso = curso;
-            Titulo = titulo;
+            TipoGraduacao = tipoGraduacao;
             Historico = new HistoricoAcademico(this);
             TurmasMatriculadas = new List<Turma>();
         }
 
-        public override string GetDadosAdcionais()
+        public override string FormatarParaString()
         {
             throw new NotImplementedException();
         }

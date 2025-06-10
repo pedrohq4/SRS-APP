@@ -51,15 +51,14 @@
             </Grid>
 
         <Grid Grid.Row="1">
-            <!-- Turmas do Aluno -->
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <ItemsControl ItemsSource="{Binding TurmasVisiveis}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="#FF6DAEE0" BorderThickness="1" CornerRadius="5" Margin="5">
                                 <StackPanel>
-                                    <TextBlock Text="{Binding Nome}" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
-                                    <ToggleButton x:Name="Toggle" Content="{Binding DisciplinaDoCurso.NomeDisciplina}" FontWeight="Bold" Background="#E0E0E0" HorizontalAlignment="Right" />
+                                    <TextBlock Text="{Binding DisciplinaDoCurso.NomeDisciplina}" VerticalAlignment="Center" FontSize="20" FontWeight="Bold"/>
+                                    <ToggleButton x:Name="Toggle" FontWeight="Bold" Background="#E0E0E0" HorizontalAlignment="Right" />
                                     <StackPanel Visibility="{Binding IsChecked, ElementName=Toggle, Converter={StaticResource BoolToVisibilityConverter}}" Margin="10 0 0 0">
                                         <TextBlock Text="{Binding Formatado}" TextWrapping="Wrap" Margin="0 5"/>
                                     </StackPanel>

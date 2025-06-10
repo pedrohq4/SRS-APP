@@ -9,7 +9,7 @@ namespace SRS.Faculdade.APP.Model.Entities
     public enum TipoUsuario
     {
         Professor,
-        Aluno,
+        Estudante,
         Admin
     }
 }

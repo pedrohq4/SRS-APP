@@ -23,7 +23,7 @@ namespace SRS.Faculdade.APP
             InitializeComponent();
             AppState.AcademicoService = new AcademicoService();
             AppState.UsuarioService = new UsuarioService();
-            FramePrincipal.Navigate(new AdminView());
+            FramePrincipal.Navigate(new LoginView());
         }
     }
 }

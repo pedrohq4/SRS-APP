@@ -65,20 +65,27 @@ namespace SRS.Faculdade.APP.View.EstudantePages
         private void CarregarDadosGrafico()
         {
             //var valores = new ChartValues<double>(Estudante.TurmasMatriculadas.Select(t => t.TotalAulas > 0 ? (double)t.Presenca / t.TotalAulas * 100 : 0));
-            //var meses = new List<string> { "Jan", "Fev", "Mar", "Abr", "Mai", "Jun" };
+            var random = new Random();
+            var valores = new ChartValues<double>();
 
-            //PresencaSeries.Add(new ColumnSeries
-            //{
-            //    Title = "Presenças",
-            //    Values = valores,
-            //    Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3F51B5")),
-            //    Stroke = new SolidColorBrush(Colors.White),
-            //    StrokeThickness = 1,
-            //    DataLabels = true,
-            //    LabelPoint = point => point.Y + "%"
-            //});
+            for (int i = 0; i < 6; i++)
+            {
+                valores.Add(random.Next(70, 100)); // Valores entre 70% e 100%
+            }
+            var meses = new List<string> { "Jan", "Fev", "Mar", "Abr", "Mai", "Jun" };
 
-            //LabelsMeses = meses;
+            PresencaSeries.Add(new ColumnSeries
+            {
+                Title = "Presenças",
+                Values = valores,
+                Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#3F51B5")),
+                Stroke = new SolidColorBrush(Colors.White),
+                StrokeThickness = 1,
+                DataLabels = true,
+                LabelPoint = point => point.Y + "%"
+            });
+
+            LabelsMeses = meses;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

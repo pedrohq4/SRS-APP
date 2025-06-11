@@ -96,45 +96,92 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
 
         private void CarregarGraficoPizza()
         {
-            if (Turmas == null || Turmas.Count == 0) return;
+            //if (Turmas == null || Turmas.Count == 0) return;
 
-            int aprovados = 0;
-            int reprovados = 0;
+            //int aprovados = 0;
+            //int reprovados = 0;
+
+            //foreach (var turma in Turmas)
+            //{
+            //    foreach (var estudante in turma.EstudantesInscritos.Values)
+            //    {
+            //        var historicoTurma = estudante.Historico?.Turmas.FirstOrDefault(t => t.Turma == turma);
+            //        if (historicoTurma != null)
+            //        {
+            //            if (historicoTurma.EstaAprovado())
+            //                aprovados++;
+            //            else
+            //                reprovados++;
+            //        }
+            //    }
+            //}
+
+            //SeriesPizzas = new SeriesCollection
+            //{
+            //   new PieSeries
+            //   {
+            //       Title = "Aprovados",
+            //       Values = new ChartValues<double> { aprovados },
+            //       DataLabels = true,
+            //       Fill = Brushes.Green,
+            //       LabelPoint = point => $"{point.Y} ({point.Participation:P0})"
+            //   },
+            //   new PieSeries
+            //   {
+            //       Title = "Reprovados",
+            //       Values = new ChartValues<double> { reprovados },
+            //       DataLabels = true,
+            //       Fill = Brushes.Red,
+            //       LabelPoint = point => $"{point.Y} ({point.Participation:P0})"
+            //   }
+            //};
+
+            if (Turmas == null || Turmas.Count == 0)
+            {
+                Random random = new Random();
+                int totalAlunos = random.Next(50, 150); // Total entre 50 e 150 alunos
+
+                // Gerando proporção de aprovados (entre 70% e 90%)
+                double percentualAprovados = random.Next(70, 91) / 100.0;
+                int aprovados = (int)(totalAlunos * percentualAprovados);
+                int reprovados = totalAlunos - aprovados;
+
+                SeriesPizzas = new SeriesCollection
+        {
+            new PieSeries
+            {
+                Title = "Aprovados",
+                Values = new ChartValues<double> { aprovados },
+                DataLabels = true,
+                Fill = Brushes.Green,
+                LabelPoint = point => $"{point.Y} ({point.Participation:P0})"
+            },
+            new PieSeries
+            {
+                Title = "Reprovados",
+                Values = new ChartValues<double> { reprovados },
+                DataLabels = true,
+                Fill = Brushes.Red,
+                LabelPoint = point => $"{point.Y} ({point.Participation:P0})"
+            }
+        };
+                return;
+            }
+
+            // Se houver turmas, mas queremos dados fictícios mesmo assim
+            Random rand = new Random();
+            int totalAprovados = 0;
+            int totalReprovados = 0;
 
             foreach (var turma in Turmas)
             {
-                foreach (var estudante in turma.EstudantesInscritos.Values)
-                {
-                    var historicoTurma = estudante.Historico?.Turmas.FirstOrDefault(t => t.Turma == turma);
-                    if (historicoTurma != null)
-                    {
-                        if (historicoTurma.EstaAprovado())
-                            aprovados++;
-                        else
-                            reprovados++;
-                    }
-                }
-            }
+                // Para cada turma, geramos números aleatórios
+                int alunosTurma = rand.Next(20, 40); // Entre 20 e 40 alunos por turma
+                double taxaAprovacao = rand.Next(60, 95) / 100.0; // Taxa entre 60% e 95%
 
-            SeriesPizzas = new SeriesCollection
-            {
-               new PieSeries
-               {
-                   Title = "Aprovados",
-                   Values = new ChartValues<double> { aprovados },
-                   DataLabels = true,
-                   Fill = Brushes.Green,
-                   LabelPoint = point => $"{point.Y} ({point.Participation:P0})"
-               },
-               new PieSeries
-               {
-                   Title = "Reprovados",
-                   Values = new ChartValues<double> { reprovados },
-                   DataLabels = true,
-                   Fill = Brushes.Red,
-                   LabelPoint = point => $"{point.Y} ({point.Participation:P0})"
-               }
-            };
+                totalAprovados += (int)(alunosTurma * taxaAprovacao);
+                totalReprovados += alunosTurma - (int)(alunosTurma * taxaAprovacao);
+            }
         }
 
         private void CarregarGraficoGeral()
@@ -158,10 +205,20 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
 
         private void CarregarGraficoBarras()
         {
-            if (Turmas == null || Turmas.Count == 0) return;
+            if (Turmas == null || Turmas.Count == 0)
+            {
+                Turmas = new ObservableCollection<Turma>
+                {
+                    new Turma(201, DayOfWeek.Thursday, "10:30", "302", 32, 20, new Curso("MT", "Matematica", 30), new Professor(101, "João", "Cuz", "23", "Baicharel", "Humanas")),
+                    new Turma(202, DayOfWeek.Monday, "08:00", "205", 25, 20, new Curso("FS", "Física", 25), new Professor(101, "João", "Cuz", "23", "Baicharel", "Humanas")),
+                    new Turma(203, DayOfWeek.Tuesday, "13:15", "110", 30, 20, new Curso("HT", "História", 30), new Professor(101, "João", "Cuz", "23", "Baicharel", "Humanas")),
+                    new Turma(204, DayOfWeek.Wednesday, "14:45", "Lab3", 20, 20, new Curso("QM", "Química", 20), new Professor(101, "João", "Cuz", "23", "Baicharel", "Humanas")),
+                };
+            }
 
             var tempSeries = new SeriesCollection();
             var categorias = new[] { "ND", "D", "DM", "DML" };
+            var random = new Random();
 
             foreach (var categoria in categorias)
             {
@@ -169,14 +226,15 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
 
                 foreach (var turma in Turmas)
                 {
-                    valores.Add(ContarConceitosPorTurma(turma, categoria));
+                    // Gerando valores aleatórios entre 0 e 20 para cada conceito
+                    valores.Add(random.Next(0, 21));
                 }
 
                 tempSeries.Add(new ColumnSeries
                 {
                     Title = categoria,
                     Values = valores,
-                    DataLabels = true
+                    DataLabels = true // Método opcional para cores diferentes
                 });
             }
 

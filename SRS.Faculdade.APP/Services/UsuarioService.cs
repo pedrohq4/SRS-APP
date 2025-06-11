@@ -12,10 +12,10 @@ namespace SRS.Faculdade.APP.Services
         {
             _Pessoas = new List<Pessoa>()
             {
-                new Admin("João", "bruno", "12", 304), //joao.bruno@Admin.edu
-                new Professor(102 , "Jose", "Pereira", "3", "Professor", "Humanas"), //jose.pereira@Professor.edu / 123
-                new Professor(193 ,"João", "Silva", "2", "Professor", "Humanas"), //joão.silva@Professor.edu / 123
-                new Estudante("Lucas", "Andrade", "0", "Doutorado", "Medicina"), //lucas.andrade@Aluno.edu / 123
+                new Admin("João", "bruno", "12345632442", 304), //joao.bruno@Admin.edu
+                new Professor(102 , "Jose", "Pereira", "3324563242", "Professor", "Humanas"), //jose.pereira@Professor.edu / 123
+                new Professor(193 ,"João", "Silva", "23434556321", "Professor", "Humanas"), //joão.silva@Professor.edu / 123
+                new Estudante("Lucas", "Andrade", "00942312342", "Doutorado", "Medicina"), //lucas.andrade@Aluno.edu / 123
             };
         }
 

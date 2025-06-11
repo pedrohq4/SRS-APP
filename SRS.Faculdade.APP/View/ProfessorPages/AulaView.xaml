@@ -45,10 +45,8 @@
         <TextBlock Grid.Row="1" Text="Aulas da Turma" Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
                    HorizontalAlignment="Center" Margin="0 20 0 20"/>
 
-        <!-- Lista de Cards de Aulas -->
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <WrapPanel x:Name="wpAulas" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-                <!-- Cards de aulas serão adicionados aqui via code-behind -->
             </WrapPanel>
         </ScrollViewer>
     </Grid>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SRS.Faculdade.APP"
         mc:Ignorable="d"
         Style="{StaticResource MaterialDesignWindow}"
-        Title="MainWindow" Height="550" Width="800">
+        Title="Srs" Height="550" Width="800">
 
     <Grid>
         <Frame x:Name="FramePrincipal" Grid.Row="1" NavigationUIVisibility="Hidden"/>

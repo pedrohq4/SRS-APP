@@ -66,6 +66,11 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
             ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(this);
         }
 
+        private void Aulas_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new AulaView());
+        }
+
         private void Detalhes_Click(object sender, RoutedEventArgs e)
         {
             var button = sender as Button;
@@ -74,7 +79,9 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
 
             if (turmaSelecionada != null)
             {
-                ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new DetalheView(turmaSelecionada));
+                var detalheView = new DetalheView(turmaSelecionada);
+
+                ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(detalheView);
             }
         }
     }

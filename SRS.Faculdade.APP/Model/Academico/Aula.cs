@@ -9,8 +9,17 @@ namespace SRS.Faculdade.APP.Model.Academico
 {
     public class Aula
     {
-        public TimeOnly HorarioDeAula { get; set; }
-        public Dictionary<Estudante, bool> Presenca { get; set; }
-        
+        public TimeOnly Horario { get; set; }
+        public string Topico { get; set; }
+        public Turma TurmaAssociada { get; set; }
+        public Dictionary<Estudante, bool> Presencas { get; set; }
+
+        public Aula(TimeOnly horario, string topico, Turma turma, Dictionary<Estudante, bool> presencas)
+        {
+            Horario = horario;
+            Topico = topico;
+            TurmaAssociada = turma;
+            Presencas = presencas;
+        }
     }
 }

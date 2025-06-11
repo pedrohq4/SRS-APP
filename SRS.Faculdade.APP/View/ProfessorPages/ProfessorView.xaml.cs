@@ -345,16 +345,9 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
             ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new TurmaView());
         }
 
-        private void Detalhes_Click(object sender, RoutedEventArgs e)
+        private void Aulas_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-
-            var turmaSelecionada = button?.CommandParameter as Turma;
-
-            if (turmaSelecionada != null)
-            {
-                ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new DetalheView(turmaSelecionada));
-            }
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new AulaView());
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using MaterialDesignThemes.Wpf;
+using SRS.Faculdade.APP.Model.Academico;
 using SRS.Faculdade.APP.Model.Entities;
 
 namespace SRS.Faculdade.APP.View.ProfessorPages
@@ -26,7 +27,7 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
 
         private void CarregarDetalhesAula()
         {
-            txtAulaData.Text = $"Data: {_aulaAtual.Data.ToShortDateString()}";
+            txtAulaData.Text = $"Data: {_aulaAtual.Horario.ToString()}";
             txtAulaTopico.Text = $"Tópico: {_aulaAtual.Topico}";
             txtAulaTurma.Text = $"Turma: {_aulaAtual.TurmaAssociada.Nome}";
         }

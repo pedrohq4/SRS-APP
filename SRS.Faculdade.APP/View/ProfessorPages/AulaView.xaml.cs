@@ -7,6 +7,7 @@ using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using SRS.Faculdade.APP.Model.Academico;
 using SRS.Faculdade.APP.Model.Entities;
+using SRS.Faculdade.APP.Services;
 using static SRS.Faculdade.APP.MainWindow;
 
 namespace SRS.Faculdade.APP.View.ProfessorPages
@@ -27,7 +28,7 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
         private void CarregarAulasMockadas()
         {
             _aulasMockadas = new List<Aula>();
-            Curso disciplinaMock = new Curso("Programação Orientada a Objetos", "POO202", 40);
+            Curso disciplinaMock = new Curso("101", "MT", 40);
 
             Turma turmaMock = new Turma(201, DayOfWeek.Tuesday, "Lab 5", 25, 40, disciplinaMock, Professor);
 
@@ -43,54 +44,34 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
             turmaMock.Incricao(aluno4);
             turmaMock.Incricao(aluno5);
 
-            Aula aula1 = new Aula
-            {
-                Data = new DateTime(2025, 3, 10),
-                Topico = "Introdução ao WPF",
-                TurmaAssociada = turmaMock,
-                Presencas = new Dictionary<Estudante, bool>
-                {
-                    { aluno1, true },
-                    { aluno2, true },
-                    { aluno3, false },
-                    { aluno4, true },
-                    { aluno5, false }
-                }
-            };
-            _aulasMockadas.Add(aula1);
-
-            
-            Aula aula2 = new Aula
-            {
-                Data = new DateTime(2025, 3, 17),
-                Topico = "Data Binding em WPF",
-                TurmaAssociada = turmaMock,
-                Presencas = new Dictionary<Estudante, bool>
+            Aula aula1 = new Aula(new TimeOnly(10, 0), "Fundamentos de Matemática", turmaMock, new Dictionary<Estudante, bool>
                 {
                     { aluno1, true },
                     { aluno2, false },
                     { aluno3, true },
                     { aluno4, true },
                     { aluno5, true }
-                }
-            };
+                });
+            _aulasMockadas.Add(aula1);
+
+            Aula aula2 = new Aula(new TimeOnly(14, 0), "Geometria Analítica", turmaMock, new Dictionary<Estudante, bool>
+                {
+                    { aluno1, true },
+                    { aluno2, false },
+                    { aluno3, true },
+                    { aluno4, true },
+                    { aluno5, true }
+                });
             _aulasMockadas.Add(aula2);
 
-            
-            Aula aula3 = new Aula
-            {
-                Data = new DateTime(2025, 3, 24),
-                Topico = "Estilos e Templates",
-                TurmaAssociada = turmaMock,
-                Presencas = new Dictionary<Estudante, bool>
+            Aula aula3 = new Aula(new TimeOnly(16, 0), "Probabilidade e Estatística", turmaMock, new Dictionary<Estudante, bool>
                 {
                     { aluno1, false },
                     { aluno2, true },
                     { aluno3, true },
                     { aluno4, false },
                     { aluno5, true }
-                }
-            };
+                });
             _aulasMockadas.Add(aula3);
         }
 
@@ -103,7 +84,7 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
                 Card aulaCard = new Card
                 {
                     Width = 300,
-                    Height = 150,
+                    Height = 170,
                     Margin = new Thickness(10),
                     UniformCornerRadius = 8,
                     Background = (Brush)new BrushConverter().ConvertFromString("#E0F2F7")
@@ -113,7 +94,13 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
                 StackPanel cardContent = new StackPanel { Margin = new Thickness(15) };
                 cardContent.Children.Add(new TextBlock
                 {
-                    Text = $"Data: {aula.Data.ToShortDateString()}",
+                    Text = $"Materia: {aula.TurmaAssociada.Nome}",
+                    Style = (Style)FindResource("MaterialDesignSubtitle1TextBlock"),
+                    Foreground = (Brush)new BrushConverter().ConvertFromString("#263238")
+                });
+                cardContent.Children.Add(new TextBlock
+                {
+                    Text = $"Data: {aula.Horario.ToString()}",
                     Style = (Style)FindResource("MaterialDesignSubtitle1TextBlock"),
                     Foreground = (Brush)new BrushConverter().ConvertFromString("#263238")
                 });
@@ -164,15 +151,22 @@ namespace SRS.Faculdade.APP.View.ProfessorPages
                 }
             }
         }
-    }
 
-    
-    public class Aula
-    {
-        public DateTime Data { get; set; }
-        public string Topico { get; set; }
-        public Turma TurmaAssociada { get; set; }
-        public Dictionary<Estudante, bool> Presencas { get; set; }
+
+        private void Inicio_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new ProfessorView());
+        }
+
+        private void Turmas_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(new TurmaView());
+        }
+
+        private void Aulas_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).FramePrincipal.Navigate(this);
+        }
     }
 }
 

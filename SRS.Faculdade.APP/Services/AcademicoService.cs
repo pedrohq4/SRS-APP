@@ -11,6 +11,12 @@ namespace SRS.Faculdade.APP.Services
 
         public AcademicoService()
         {
+            CarregarListaInicial();
+
+        }
+
+        private void CarregarListaInicial()
+        {
             var professor = new Professor(101, "João", "Cuz", "23", "Baicharel", "Humanas");
 
             _Turmas = new List<Turma>()
@@ -37,6 +43,17 @@ namespace SRS.Faculdade.APP.Services
         public IList<Turma> ObterTodasTurmas() => _Turmas;
         public IList<Curso> ObterTodosCursos() => _Cursos;
         public void CriarTurma(int numero, DayOfWeek diaSemana, string horario, string sala, int capacidadeAlunos, int TotalAulas, Curso disciplinaAssociada, Professor professor)
-            => _Turmas.Add(new Turma(numero, diaSemana, sala, capacidadeAlunos, TotalAulas, disciplinaAssociada, professor));
+        {
+            foreach(var turma in _Turmas)
+            {
+                if (turma.Numero == numero)
+                {
+                    throw new Exception("Turma ja existente");
+                }
+            }
+            
+            _Turmas.Add(new Turma(numero, diaSemana, sala, capacidadeAlunos, TotalAulas, disciplinaAssociada, professor));
+        }
+
     }
 }

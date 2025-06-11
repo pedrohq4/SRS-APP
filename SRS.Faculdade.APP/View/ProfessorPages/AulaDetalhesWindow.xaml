@@ -1,0 +1,75 @@
+<Window x:Class="SRS.Faculdade.APP.View.ProfessorPages.AulaDetalhesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Detalhes da Aula" Height="800" Width="1200"
+        WindowStartupLocation="CenterScreen">
+
+    <materialDesign:DialogHost x:Name="MainDialogHost" Identifier="RootDialogHost" CloseOnClickAway="True">
+        <Grid Background="{DynamicResource MaterialDesign.Brush.Background}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!-- Título e Detalhes da Aula -->
+            <materialDesign:Card Grid.Row="0" Margin="16" Padding="16">
+                <StackPanel>
+                    <TextBlock x:Name="txtAulaData" Style="{StaticResource MaterialDesignHeadline5TextBlock}" Margin="0 0 0 8"/>
+                    <TextBlock x:Name="txtAulaTopico" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0 0 0 4"/>
+                    <TextBlock x:Name="txtAulaTurma" Style="{StaticResource MaterialDesignSubtitle2TextBlock}"/>
+                </StackPanel>
+            </materialDesign:Card>
+
+            <!-- Lista de Alunos e Presença -->
+            <materialDesign:Card Grid.Row="1" Margin="16" Padding="16">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="Controle de Presença" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Margin="0 0 0 16"/>
+                    <DataGrid Grid.Row="1" x:Name="dgAlunosPresenca" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Nome Completo" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding NomeCompleto}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            
+                            <DataGridTemplateColumn Header="Matrícula" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Estudante.Cpf}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Presente" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ToggleButton IsChecked="{Binding IsPresente, Mode=TwoWay}"
+                              Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                              Margin="4"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn> 
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </materialDesign:Card>
+
+            <!-- Botão Salvar -->
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="16">
+                <Button Content="Salvar Presenças" Style="{StaticResource MaterialDesignRaisedButton}" Click="SalvarPresencas_Click"/>
+            </StackPanel>
+        </Grid>
+    </materialDesign:DialogHost>
+</Window>
+

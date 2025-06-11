@@ -8,7 +8,6 @@ namespace SRS.Faculdade.APP.Model.Academico
         public string Nome => DisciplinaDoCurso.CodigoDisciplina + "-" + Numero;
         public int Numero {  get; set; }              
         public DayOfWeek DiaSemana { get; set; }    
-        public string Horario { get; set; }
         public string Sala {  get; set; }         
         public Curso DisciplinaDoCurso {  get; set; }      
         public Professor Professor {  get; set; }
@@ -19,12 +18,12 @@ namespace SRS.Faculdade.APP.Model.Academico
         public int TotalAulas { get; set; }
         public string Formatado => FormatarParaString();
         public string FormatadoBasico => FormatarParaStringBasico();
+        public List<Aula> Aulas { get; set; }
 
-        public Turma(int numero, DayOfWeek diaSemana, string horario, string sala, int capacidadeAlunos, int TotalAulas, Curso disciplinaAssociada, Professor professor)
+        public Turma(int numero, DayOfWeek diaSemana, string sala, int capacidadeAlunos, int TotalAulas, Curso disciplinaAssociada, Professor professor)
         {
             Numero = numero;
             DiaSemana = diaSemana;
-            Horario = horario;
             Sala = sala;
             DisciplinaDoCurso = disciplinaAssociada;
             Professor = professor;
@@ -124,7 +123,6 @@ namespace SRS.Faculdade.APP.Model.Academico
             sb.AppendLine($"Turma: {Nome}");
             sb.AppendLine($"Disciplina: {DisciplinaDoCurso?.NomeDisciplina ?? "N/A"}");
             sb.AppendLine($"Dia da semana: {DiaSemana}");
-            sb.AppendLine($"Horário: {Horario ?? "N/A"}");
             sb.AppendLine($"Sala: {Sala ?? "N/A"}");
             sb.AppendLine($"Capacidade: {CapacidadeAlunos} estudantes");
             sb.AppendLine($"Professor: {Professor?.Nome ?? "N/A"}");
